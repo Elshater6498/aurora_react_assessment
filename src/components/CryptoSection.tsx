@@ -20,7 +20,6 @@ import { Input } from "./ui/input";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -111,7 +110,6 @@ const CryptoSection: React.FC<CryptoSectionProps> = ({ darkMode }) => {
     if (conversionCurrency === "USD") {
       return (conversionAmount * crypto.current_price).toFixed(2);
     } else {
-      // For simplicity, we're using a fixed exchange rate. In a real app, you'd fetch this from an API.
       const exchangeRates: { [key: string]: number } = {
         EUR: 0.84,
         GBP: 0.72,

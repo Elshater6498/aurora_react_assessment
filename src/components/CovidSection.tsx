@@ -13,7 +13,16 @@ import {
   Legend,
 } from "chart.js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 ChartJS.register(
   CategoryScale,
@@ -55,7 +64,7 @@ const CovidSection: React.FC<CovidSectionProps> = ({ darkMode }) => {
         axios.get("https://disease.sh/v3/covid-19/countries?sort=cases"),
         axios.get("https://disease.sh/v3/covid-19/all"),
       ]);
-      setCovidData(countriesResponse.data.slice(0, 10)); // Get top 10 countries by cases
+      setCovidData(countriesResponse.data.slice(0, 10));
       setGlobalData(globalResponse.data);
       setLoading(false);
       fetchHistoricalData();
@@ -117,19 +126,19 @@ const CovidSection: React.FC<CovidSectionProps> = ({ darkMode }) => {
       <h2 className="text-2xl font-bold mb-4">COVID-19 Statistics</h2>
 
       <div className="mb-4 flex">
-        <input
+        <Input
           type="text"
           value={searchCountry}
           onChange={(e) => setSearchCountry(e.target.value)}
           placeholder="Enter country name"
           className="flex-grow p-2 rounded-l-lg bg-background text-foreground"
         />
-        <button
+        <Button
           onClick={handleSearch}
           className="bg-primary text-primary-foreground px-4 py-2 rounded-r-lg hover:bg-primary/90 transition-colors duration-200 flex items-center"
         >
           <Search size={20} className="mr-2" /> Search
-        </button>
+        </Button>
       </div>
 
       {loading ? (
@@ -183,51 +192,57 @@ const CovidSection: React.FC<CovidSectionProps> = ({ darkMode }) => {
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
-            <table className="min-w-full">
-              <thead>
-                <tr>
-                  <th className="px-4 py-2 text-left">Country</th>
-                  <th className="px-4 py-2 text-left">Total Cases</th>
-                  <th className="px-4 py-2 text-left">Deaths</th>
-                  <th className="px-4 py-2 text-left">Recovered</th>
-                </tr>
-              </thead>
-              <tbody>
+            <Table className="min-w-full">
+              <TableHeader>
+                <TableRow>
+                  <TableCell className="px-4 py-2 text-left">Country</TableCell>
+                  <TableCell className="px-4 py-2 text-left">
+                    Total Cases
+                  </TableCell>
+                  <TableCell className="px-4 py-2 text-left">Deaths</TableCell>
+                  <TableCell className="px-4 py-2 text-left">
+                    Recovered
+                  </TableCell>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
                 {loading
                   ? Array(10)
                       .fill(0)
                       .map((_, index) => (
-                        <tr key={index}>
-                          <td className="px-4 py-2">
+                        <TableRow key={index}>
+                          <TableCell className="px-4 py-2">
                             <Skeleton className="h-4 w-24" />
-                          </td>
-                          <td className="px-4 py-2">
+                          </TableCell>
+                          <TableCell className="px-4 py-2">
                             <Skeleton className="h-4 w-16" />
-                          </td>
-                          <td className="px-4 py-2">
+                          </TableCell>
+                          <TableCell className="px-4 py-2">
                             <Skeleton className="h-4 w-16" />
-                          </td>
-                          <td className="px-4 py-2">
+                          </TableCell>
+                          <TableCell className="px-4 py-2">
                             <Skeleton className="h-4 w-16" />
-                          </td>
-                        </tr>
+                          </TableCell>
+                        </TableRow>
                       ))
                   : covidData.map((country) => (
-                      <tr key={country.country} className="border-b">
-                        <td className="px-4 py-2">{country.country}</td>
-                        <td className="px-4 py-2">
+                      <TableRow key={country.country} className="border-b">
+                        <TableCell className="px-4 py-2">
+                          {country.country}
+                        </TableCell>
+                        <TableCell className="px-4 py-2">
                           {country.cases.toLocaleString()}
-                        </td>
-                        <td className="px-4 py-2">
+                        </TableCell>
+                        <TableCell className="px-4 py-2">
                           {country.deaths.toLocaleString()}
-                        </td>
-                        <td className="px-4 py-2">
+                        </TableCell>
+                        <TableCell className="px-4 py-2">
                           {country.recovered.toLocaleString()}
-                        </td>
-                      </tr>
+                        </TableCell>
+                      </TableRow>
                     ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         </CardContent>
       </Card>

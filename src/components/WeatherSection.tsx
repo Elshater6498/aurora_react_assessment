@@ -5,15 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 interface WeatherData {
   city: string;
@@ -28,7 +19,7 @@ interface WeatherSectionProps {
   darkMode: boolean;
 }
 
-const WeatherSection: React.FC<WeatherSectionProps> = ({ darkMode }) => {
+const WeatherSection: React.FC<WeatherSectionProps> = () => {
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -44,7 +35,7 @@ const WeatherSection: React.FC<WeatherSectionProps> = ({ darkMode }) => {
   const fetchWeatherData = async (citiesToFetch: string[]) => {
     setLoading(true);
     try {
-      const apiKey = "923caf2db822fe7c75a4808398e53614"; // API key
+      const apiKey = "923caf2db822fe7c75a4808398e53614";
       const requests = citiesToFetch.map((city) =>
         axios.get(
           `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
