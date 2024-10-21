@@ -131,7 +131,7 @@ const CovidSection: React.FC<CovidSectionProps> = ({ darkMode }) => {
           value={searchCountry}
           onChange={(e) => setSearchCountry(e.target.value)}
           placeholder="Enter country name"
-          className="flex-grow p-2 rounded-l-lg bg-background text-foreground"
+          className="flex-grow p-2 rounded-l-lg bg-background text-foreground border border-foreground"
         />
         <Button
           onClick={handleSearch}

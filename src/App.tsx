@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import WeatherSection from "./components/WeatherSection";
 import CryptoSection from "./components/CryptoSection";
 import CovidSection from "./components/CovidSection";
@@ -17,10 +17,11 @@ function App() {
       <header className="bg-primary-foreground text-primary p-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold">React Assessment App</h1>
         <Button
+          size={"icon"}
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="p-2 rounded-full hover:bg-primary/90 hover:text-primary-foreground transition-colors duration-200"
         >
-          {theme ? <Sun size={24} /> : <Moon size={24} />}
+          {theme === "dark" ? <Sun size={24} /> : <Moon size={24} />}
         </Button>
       </header>
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
